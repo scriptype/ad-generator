@@ -1,27 +1,29 @@
 const path = require('path')
 
-const root = path.join(__dirname, '..')
-
-const BIN = path.join(root, 'node_modules', '.bin')
-const SRC = path.join(root, 'src')
-const DIST = path.join(root, 'dist')
-
-const JS_INPUT = path.join(SRC, 'app.js')
-const JS_OUTPUT = path.join(DIST, 'app.js')
-const JS_OUTPUT_MIN = path.join(DIST, 'app.min.js')
-
-const CSS_INPUT = path.join(SRC, 'style.css')
-const CSS_OUTPUT = path.join(DIST, 'style.min.css')
+const _root = path.join(__dirname, '..')
+const root = (...args) => path.join(_root, ...args)
+const src = (...args) => path.join(_root, 'src', ...args)
+const dist = (...args) => path.join(_root, 'dist', ...args)
 
 module.exports = {
-  BIN,
-  SRC,
-  DIST,
+  BIN: root('node_modules', '.bin'),
+  SRC: src(),
+  DIST: dist(),
 
-  JS_INPUT,
-  JS_OUTPUT,
-  JS_OUTPUT_MIN,
+  JS_INPUT: src('app.js'),
+  JS_OUTPUT: dist('app.js'),
+  JS_OUTPUT_MIN: dist('app.min.js'),
 
-  CSS_INPUT,
-  CSS_OUTPUT
+  CSS_INPUT: src('style.css'),
+  CSS_OUTPUT: dist('style.min.css'),
+
+  HTML_CONTENT_INPUT: src('ad.html'),
+  HTML_CONTENT_OUTPUT: dist('ad.html'),
+  HTML_CONTENT_OUTPUT_MIN: dist('ad.min.html'),
+
+  HTML_INPUT: src('index.html'),
+  HTML_OUTPUT: dist('index.tmp.html'),
+  HTML_OUTPUT_MIN: dist('index.html'),
+
+  DATA_PATH: src('data.json')
 }

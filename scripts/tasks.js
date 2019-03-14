@@ -1,18 +1,50 @@
+const path = require('path')
 const { run } = require('salinger')
+
+const envPath = path.join(__dirname, 'env')
+
+const {
+  HTML_CONTENT_OUTPUT,
+  HTML_CONTENT_OUTPUT_MIN,
+  HTML_OUTPUT,
+  HTML_OUTPUT_MIN,
+  DATA_PATH
+} = require(envPath)
 
 module.exports = {
   async buildJS() {
     await run('babel')
-    run('uglify')
+    await run('uglify')
   },
 
-  buildCSS() {
-    run('postcss')
+  async buildCSS() {
+    await run('postcss')
   },
 
-  async build() {
+  async buildHTML() {
+    await run('handlebars_html')
+    await run('html_minifier', {
+      IN_PATH: HTML_CONTENT_OUTPUT,
+      OUT_PATH: HTML_CONTENT_OUTPUT_MIN
+    })
+  },
+
+  async inlineAssets() {
+    await run('handlebars_inline')
+    await run('html_minifier', {
+      IN_PATH: HTML_OUTPUT,
+      OUT_PATH: HTML_OUTPUT_MIN
+    })
+  },
+
+  async build(data) {
     await run('refresh')
-    this.buildJS()
-    this.buildCSS()
+    await Promise.all([
+      this.buildJS(),
+      this.buildCSS(),
+      this.buildHTML(data)
+    ])
+    await this.inlineAssets()
+    await run('clean')
   }
 }
