@@ -1,0 +1,1 @@
+$BIN/postcss $CSS_INPUT > $CSS_OUTPUT
