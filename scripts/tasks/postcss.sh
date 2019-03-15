@@ -1,1 +1,1 @@
-$BIN/postcss $CSS_INPUT > $CSS_OUTPUT
+$BIN/postcss $CSS_INPUT > $CSS_OUTPUT_MIN

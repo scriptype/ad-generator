@@ -15,7 +15,8 @@ module.exports = {
   JS_OUTPUT_MIN: dist('app.min.js'),
 
   CSS_INPUT: src('style.css'),
-  CSS_OUTPUT: dist('style.min.css'),
+  CSS_OUTPUT: dist('style.css'),
+  CSS_OUTPUT_MIN: dist('style.min.css'),
 
   HTML_CONTENT_INPUT: src('ad.html'),
   HTML_CONTENT_OUTPUT: dist('ad.html'),
@@ -24,6 +25,7 @@ module.exports = {
   HTML_INPUT: src('index.html'),
   HTML_OUTPUT: dist('index.tmp.html'),
   HTML_OUTPUT_MIN: dist('index.html'),
+  HTML_OUTPUT_DEV: dist('index.html'),
 
   DATA_PATH: src('data.json')
 }

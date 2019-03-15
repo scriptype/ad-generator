@@ -22,7 +22,7 @@ module.exports = {
   },
 
   async buildHTML() {
-    await run('handlebars_html')
+    await run('handlebars_ad')
     await run('html_minifier', {
       IN_PATH: HTML_CONTENT_OUTPUT,
       OUT_PATH: HTML_CONTENT_OUTPUT_MIN
@@ -30,7 +30,7 @@ module.exports = {
   },
 
   async inlineAssets() {
-    await run('handlebars_inline')
+    await run('handlebars_index')
     await run('html_minifier', {
       IN_PATH: HTML_OUTPUT,
       OUT_PATH: HTML_OUTPUT_MIN
@@ -46,5 +46,23 @@ module.exports = {
     ])
     await this.inlineAssets()
     await run('clean')
+    await run('http-server')
+  },
+
+  async dev() {
+    await run('refresh')
+    await run('copy')
+    await run('handlebars_ad_dev')
+    await run('handlebars_index_dev')
+    await Promise.all([
+      run('watch', {
+        ON_UPDATE_TEMPLATE: JSON.stringify([
+          'handlebars_ad_dev',
+          'handlebars_index_dev'
+        ])
+      }),
+      run('livereload'),
+      run('http-server')
+    ])
   }
 }
