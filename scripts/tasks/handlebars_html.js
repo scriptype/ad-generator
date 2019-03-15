@@ -15,7 +15,7 @@ const template = handlebars.compile(html)
 const dataObject = JSON.parse(data)
 image2base64(dataObject.img.src)
   .then(response => {
-    const dataUrl = `data:image/jpeg;base64,${response.replace(/^\//, '')}`
+    const dataUrl = `data:image/jpeg;base64,${response}`
     const output = template({
       ...dataObject,
       ...{
