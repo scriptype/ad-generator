@@ -13,7 +13,7 @@ const {
 
 module.exports = {
   async buildJS() {
-    await run('babel')
+    await run('browserify')
     await run('uglify')
   },
 

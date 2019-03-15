@@ -3,5 +3,5 @@ const myInitializerFunction = () => {
   const myObj = {
     myProp
   }
-  console.log('hello world', myObj)
+  console.log(`hello world`, myObj)
 }

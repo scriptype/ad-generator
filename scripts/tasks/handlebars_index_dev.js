@@ -12,7 +12,7 @@ const {
 } = process.env
 
 const js = `
-  <script src="${path.relative(DIST, JS_OUTPUT)}"></script>
+  <script type="module" src="${path.relative(DIST, JS_OUTPUT)}"></script>
   <script src="http://localhost:35729/livereload.js?snipver=1"></script>
 `
 const css = `<link rel="stylesheet" href="${path.relative(DIST, CSS_OUTPUT)}" />`
