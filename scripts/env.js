@@ -2,8 +2,8 @@ const path = require('path')
 
 const _root = path.join(__dirname, '..')
 const root = (...args) => path.join(_root, ...args)
-const src = (...args) => path.join(_root, 'src', ...args)
-const dist = (...args) => path.join(_root, 'dist', ...args)
+const src = (...args) => root('src', ...args)
+const dist = (...args) => root('dist', ...args)
 
 module.exports = {
   BIN: root('node_modules', '.bin'),
