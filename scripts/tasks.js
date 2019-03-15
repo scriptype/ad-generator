@@ -37,12 +37,12 @@ module.exports = {
     })
   },
 
-  async build(data) {
+  async build() {
     await run('refresh')
     await Promise.all([
       this.buildJS(),
       this.buildCSS(),
-      this.buildHTML(data)
+      this.buildHTML()
     ])
     await this.inlineAssets()
     await run('clean')
