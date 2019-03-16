@@ -31,10 +31,17 @@ watch.watchTree(SRC, (f, curr, prev) => {
       if (err) {
         return console.error(err)
       }
-      const tasksToRun = JSON.parse(ON_UPDATE_TEMPLATE)
-      for (const [index, task] of tasksToRun.entries()) {
-        await run(task)
-      }
+
+      await afterUpsert(f, curr, prev)
     })
   }
 })
+
+const afterUpsert = async (f, curr, prev) => {
+  if (/\.(html|json)$/.test(f)) {
+    const tasksToRun = JSON.parse(ON_UPDATE_TEMPLATE)
+    for (const [index, task] of tasksToRun.entries()) {
+      await run(task)
+    }
+  }
+}
