@@ -1,0 +1,19 @@
+.button {
+    /* reset default button styles */
+    background: none;
+    border: none;
+    appearance: none;
+    color: inherit;
+    font-size: 1em;
+
+    /* button component styling */
+    padding: .6rem 2.8rem;
+    font-weight: 100;
+    border-radius: 10px;
+}
+
+.button--primary {
+    font-size: 1.4em;
+    background: #348bee;
+    color: #fff;
+}

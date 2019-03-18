@@ -1,0 +1,26 @@
+.ad-unit {
+    height: 86%;
+    padding: 13px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.ad-unit__banner {
+    max-width: 100%;
+    border-radius: 6px;
+}
+
+.ad-unit__description {
+    font-size: 18px;
+    line-height: 1.25;
+    text-align: center;
+}
+
+.ad-unit__cta-container {
+    text-align: center;
+}
+
+.ad-unit__cta {
+    font-family: 'Open Sans', sans-serif;
+}
