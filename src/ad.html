@@ -1,7 +1,11 @@
 <div class="ad-unit">
-    <img class="ad-unit__banner" src="{{ img.src }}" alt="{{ img.alt }}" />
+    <div class="ad-unit__banner-container">
+        <img class="ad-unit__banner" src="{{ img.src }}" alt="{{ img.alt }}" />
+    </div>
     <p class="ad-unit__description">{{ description }}</p>
     <div class="ad-unit__cta-container">
-        <button class="button button--primary ad-unit__cta" type="button">{{ buttonText }}</button>
+        <button class="button button--primary ad-unit__cta" type="button">
+            {{ buttonText }}
+        </button>
     </div>
 </div>

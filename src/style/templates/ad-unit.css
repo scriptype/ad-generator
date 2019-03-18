@@ -1,9 +1,13 @@
 .ad-unit {
-    height: 86%;
+    height: 100%;
     padding: 13px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.ad-unit__banner-container {
+    text-align: center;
 }
 
 .ad-unit__banner {
@@ -12,7 +16,7 @@
 }
 
 .ad-unit__description {
-    font-size: 18px;
+    font-size: 1.125em;
     line-height: 1.25;
     text-align: center;
 }
@@ -23,4 +27,29 @@
 
 .ad-unit__cta {
     font-family: 'Open Sans', sans-serif;
+}
+
+@media (max-width: 1000px) and (orientation: portrait) {
+    .ad-unit {
+        height: 86%;
+    }
+}
+
+@media (orientation: landscape) {
+    .ad-unit__banner {
+        max-height: 60vh;
+    }
+}
+
+/* Aspect ratios similar to square */
+@media
+(min-aspect-ratio: 3/5) and
+(max-aspect-ratio: 5/3) {
+    .ad-unit {
+        height: 100%;
+    }
+
+    .ad-unit__banner {
+        max-height: 60vh;
+    }
 }
