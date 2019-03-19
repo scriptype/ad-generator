@@ -1,10 +1,23 @@
-<div class="ad-unit">
+<div class="ad-unit" data-test-name="ad-unit">
     <div class="ad-unit__banner-container">
-        <img class="ad-unit__banner" src="{{ img.src }}" alt="{{ img.alt }}" />
+        <img
+            class="ad-unit__banner"
+            data-test-name="ad-banner"
+            src="{{ img.src }}"
+            alt="{{ img.alt }}"
+        />
     </div>
-    <p class="ad-unit__description">{{ description }}</p>
+
+    <p class="ad-unit__description" data-test-name="ad-description">
+        {{ description }}
+    </p>
+
     <div class="ad-unit__cta-container">
-        <button class="button button--primary ad-unit__cta" type="button">
+        <button
+            class="button button--primary ad-unit__cta"
+            data-test-name="ad-cta"
+            type="button"
+        >
             {{ buttonText }}
         </button>
     </div>
