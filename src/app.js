@@ -5,3 +5,5 @@ const myInitializerFunction = () => {
   }
   console.log(`hello world`, myObj)
 }
+
+myInitializerFunction()

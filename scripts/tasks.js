@@ -7,8 +7,7 @@ const {
   HTML_CONTENT_OUTPUT,
   HTML_CONTENT_OUTPUT_MIN,
   HTML_OUTPUT,
-  HTML_OUTPUT_MIN,
-  DATA_PATH
+  HTML_OUTPUT_MIN
 } = require(envPath)
 
 module.exports = {

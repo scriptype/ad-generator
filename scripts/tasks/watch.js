@@ -1,5 +1,4 @@
 const fse = require('fs-extra')
-const path = require('path')
 const watch = require('watch')
 const { run } = require('salinger')
 
@@ -10,7 +9,7 @@ const {
 } = process.env
 
 watch.watchTree(SRC, (f, curr, prev) => {
-  if (typeof f == "object" && prev === null && curr === null) {
+  if (typeof f === 'object' && prev === null && curr === null) {
     // Finished walking the tree
     return
   }
@@ -24,14 +23,12 @@ watch.watchTree(SRC, (f, curr, prev) => {
         console.error(err)
       }
     })
-
   } else {
     console.log('static: upsert', f)
     fse.copy(f, targetPath, async (err) => {
       if (err) {
         return console.error(err)
       }
-
       await afterUpsert(f, curr, prev)
     })
   }
@@ -40,7 +37,7 @@ watch.watchTree(SRC, (f, curr, prev) => {
 const afterUpsert = async (f, curr, prev) => {
   if (/\.(html|json)$/.test(f)) {
     const tasksToRun = JSON.parse(ON_UPDATE_TEMPLATE)
-    for (const [index, task] of tasksToRun.entries()) {
+    for (const [, task] of tasksToRun.entries()) {
       await run(task)
     }
   }
