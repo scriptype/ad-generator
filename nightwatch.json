@@ -10,7 +10,10 @@
   "test_settings" : {
     "default" : {
       "desiredCapabilities": {
-        "browserName": "chrome"
+        "browserName": "chrome",
+        "chromeOptions": {
+          "args": ["headless"]
+        }
       }
     }
   },
@@ -18,5 +21,7 @@
   "test_workers": {
     "enabled": true,
     "workers": "auto"
-  }
+  },
+
+  "output_folder": false
 }
