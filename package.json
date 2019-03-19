@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "nightwatch",
     "start": "salinger dev",
     "build": "salinger build",
     "lint": "eslint ."
@@ -20,6 +20,7 @@
     "babel-eslint": "^10.0.1",
     "babelify": "^10.0.0",
     "browserify": "^16.2.3",
+    "chromedriver": "^2.46.0",
     "cssnano": "^4.1.10",
     "eslint": "^5.15.3",
     "eslint-config-standard": "^12.0.0",
@@ -33,6 +34,7 @@
     "http-server": "^0.11.1",
     "image-to-base64": "^2.0.1",
     "livereload": "^0.7.0",
+    "nightwatch": "^1.0.19",
     "postcss-cli": "^6.1.2",
     "postcss-import": "^12.0.1",
     "salinger": "^2.2.0",
