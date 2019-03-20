@@ -2,7 +2,7 @@
   "name": "task1-interstitial-ad-unit",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "generator/index.js",
   "scripts": {
     "test": "npm run test:ui && npm run test:unit",
     "test:ui": "nightwatch",
