@@ -1,6 +1,2 @@
-rm $JS_OUTPUT_MIN
-rm $JS_OUTPUT
-rm $CSS_OUTPUT_MIN
-rm $HTML_OUTPUT
-rm $HTML_CONTENT_OUTPUT
-rm $HTML_CONTENT_OUTPUT_MIN
+# Delete all files inside $DIST, except minified html output.
+find $DIST | grep -v $DIST\$ | grep -v $HTML_OUTPUT_MIN | xargs rm
