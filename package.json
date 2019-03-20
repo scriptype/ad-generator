@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run test:ui && npm run test:unit",
     "test:ui": "nightwatch",
-    "test:unit": "ava */**/*.spec.js",
+    "test:unit": "ava",
     "lint": "eslint .",
     "start": "salinger dev",
     "build": "salinger build"
