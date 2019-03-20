@@ -6,6 +6,7 @@ module.exports = {
       "anonymous": "never",
       "named": "never",
       "asyncArrow": "always"
-    }]
+    }],
+    "brace-style": ["error", "never"]
   }
 }
