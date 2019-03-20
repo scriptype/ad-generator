@@ -1,5 +1,5 @@
 {
-  "src_folders" : ["tests"],
+  "src_folders" : ["ui-tests"],
 
   "webdriver" : {
     "start_process": true,
