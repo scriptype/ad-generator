@@ -17,7 +17,7 @@ $ npm i
 
 ## Development
 
-Run the below command to start the dev environment:
+To start the dev environment, run:
 
 ```sh
 npm start
@@ -30,7 +30,7 @@ automatically refreshed upon changes.
 
 ## Build
 
-Run the below command to finalize the work and produce a minimal build output:
+To finalize the work and produce a minimal build output, run:
 
 ```sh
 npm run build
