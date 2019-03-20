@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "nightwatch",
+    "test": "npm run test:ui && npm run test:unit",
+    "test:ui": "nightwatch",
+    "test:unit": "ava */**/*.spec.js",
+    "lint": "eslint .",
     "start": "salinger dev",
-    "build": "salinger build",
-    "lint": "eslint ."
+    "build": "salinger build"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +19,7 @@
     "@babel/core": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
     "autoprefixer": "^9.5.0",
+    "ava": "^1.3.1",
     "babel-eslint": "^10.0.1",
     "babelify": "^10.0.0",
     "browserify": "^16.2.3",
