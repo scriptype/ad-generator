@@ -38,3 +38,21 @@ npm run build
 
 This will minify and inline all assets directly into html. You can check
 `localhost:8080` after the build process is completed.
+
+## Test
+
+For running all tests (unit and ui automation), run the command below:
+
+```sh
+npm test
+```
+
+Unit and UI tests can also be run separately:
+
+```sh
+# Runs UI tests
+npm run test:ui
+
+# Runs unit tests
+npm run test:unit
+```
