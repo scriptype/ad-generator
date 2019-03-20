@@ -1,9 +1,12 @@
 const path = require('path')
 const { run } = require('salinger')
+const { fileExists } = require('./utils')
 
 const envPath = path.join(__dirname, 'env')
 
 const {
+  JS_INPUT,
+  CSS_INPUT,
   HTML_CONTENT_OUTPUT,
   HTML_CONTENT_OUTPUT_MIN,
   HTML_OUTPUT,
@@ -12,11 +15,19 @@ const {
 
 module.exports = {
   async buildJS() {
+    if (!fileExists(JS_INPUT)) {
+      console.info(`${JS_INPUT} doesn't exist. Skipping building JS.`)
+      return Promise.resolve()
+    }
     await run('browserify')
     await run('uglify')
   },
 
   async buildCSS() {
+    if (!fileExists(CSS_INPUT)) {
+      console.info(`${CSS_INPUT} doesn't exist. Skipping building CSS.`)
+      return Promise.resolve()
+    }
     await run('postcss')
   },
 

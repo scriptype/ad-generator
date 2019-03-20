@@ -4,19 +4,11 @@
         <meta charset="utf-8" />
         <title>Interstitial Ad Unit</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        {{#if isDev}}
-            {{{ css }}}
-        {{else}}
-            <style type="text/css">{{{ css }}}</style>
-        {{/if}}
+        {{{ css }}}
     </head>
     <body>
         {{{ html }}}
 
-        {{#if isDev}}
-            {{{js}}}
-        {{else}}
-            <script>{{{ js }}}</script>
-        {{/if}}
+        {{{ js }}}
     </body>
 </html>

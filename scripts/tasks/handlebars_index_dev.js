@@ -1,6 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 const handlebars = require('handlebars')
+const { fileExists } = require('../utils')
 
 const {
   DIST,
@@ -11,19 +12,31 @@ const {
   HTML_OUTPUT_DEV
 } = process.env
 
-const js = `
-  <script type="module" src="${path.relative(DIST, JS_OUTPUT)}"></script>
-  <script src="http://localhost:35729/livereload.js?snipver=1"></script>
-`
-const css = `<link rel="stylesheet" href="${path.relative(DIST, CSS_OUTPUT)}" />`
+const js = [
+  '<script src="http://localhost:35729/livereload.js?snipver=1"></script>'
+]
+
+if (fileExists(JS_OUTPUT)) {
+  js.unshift(
+    `<script type="module" src="${path.relative(DIST, JS_OUTPUT)}"></script>`
+  )
+}
+
+const css = []
+if (fileExists(CSS_OUTPUT)) {
+  css.unshift(
+    `<link rel="stylesheet" href="${path.relative(DIST, CSS_OUTPUT)}" />`
+  )
+}
+
 const content = fs.readFileSync(HTML_CONTENT_OUTPUT, 'utf-8')
 const html = fs.readFileSync(HTML_INPUT, 'utf-8')
 const template = handlebars.compile(html)
 
 const output = template({
   html: content,
-  css,
-  js,
+  css: css.join('\n'),
+  js: js.join('\n'),
   isDev: 1
 })
 
