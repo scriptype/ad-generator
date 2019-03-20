@@ -1,4 +1,4 @@
-# Interstitial Advertisement Unit
+# Ad Generator
 
 Produces a single image advertisement with the given data
 
