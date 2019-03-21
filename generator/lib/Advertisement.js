@@ -6,8 +6,9 @@ class Advertisement {
   }
 
   toJSON() {
-    const { images, name } = this.data
+    const { id, images, name } = this.data
     return {
+      id,
       img: {
         src: images[0],
         alt: `Screenshot of ${name}`

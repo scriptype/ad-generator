@@ -3,6 +3,10 @@ const Model = require('./Model')
 class AdvertisementData extends Model {
   constructor(data) {
     const scheme = {
+      id: {
+        type: Number,
+        required: true
+      },
       name: {
         type: String,
         required: true

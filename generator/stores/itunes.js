@@ -12,6 +12,7 @@ const fetch = id => new Promise((resolve, reject) => {
       const results = JSON.parse(data).results
       const app = results[0]
       const advertisementData = new AdvertisementData({
+        id: app.trackId,
         name: app.trackName,
         description: app.description,
         images: app.screenshotUrls,

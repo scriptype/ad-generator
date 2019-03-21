@@ -7,11 +7,11 @@ test('fetch', async (t) => {
   try {
     const appData = await itunes.fetch(exampleAppId)
     t.is(
-      appData.results[0].trackId,
+      appData.id,
       exampleAppId,
       'It fetches the correct application from the store'
     )
   } catch (e) {
-    t.fail()
+    t.fail(e)
   }
 })
