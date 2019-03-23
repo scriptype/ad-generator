@@ -13,7 +13,7 @@ class Model {
     Object.keys(scheme).forEach((key) => {
       const value = data[key]
 
-      if (scheme[key].required && !value) {
+      if (scheme[key].required && value == null) {
         throw new MissingKeyError(key, __id)
       }
 
