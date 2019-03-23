@@ -18,9 +18,11 @@ class Model {
       }
 
       const candidateType = typeof value
-      const validType = typeof scheme[key].type()
-      if (candidateType !== validType) {
-        throw new InvalidTypeError(candidateType, validType, key, __id)
+      if (candidateType !== 'undefined') {
+        const validType = typeof scheme[key].type()
+        if (candidateType !== validType) {
+          throw new InvalidTypeError(candidateType, validType, key, __id)
+        }
       }
 
       this[key] = value

@@ -1,7 +1,8 @@
-class RequiredKeyError extends Error {
+class MissingKeyError extends Error {
   constructor(key, model) {
-    return new Error(`Missing key: ${model}.${key}`)
+    super()
+    this.message = `Missing key: ${model}.${key}`
   }
 }
 
-module.exports = RequiredKeyError
+module.exports = MissingKeyError

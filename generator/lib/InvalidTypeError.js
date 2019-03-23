@@ -1,8 +1,7 @@
 class InvalidTypeError extends Error {
   constructor(candidateType, validType, key, model) {
-    return new Error(
-      `Invalid type (${candidateType}) for: ${model}.${key}. Expected type: ${validType}`
-    )
+    super()
+    this.message = `Invalid type (${candidateType}) for: ${model}.${key}. Expected type: ${validType}`
   }
 }
 
