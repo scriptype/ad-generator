@@ -40,9 +40,11 @@
     "nightwatch": "^1.0.19",
     "postcss-cli": "^6.1.2",
     "postcss-import": "^12.0.1",
-    "salinger": "^2.2.0",
     "uglifyjs": "^2.4.11",
     "watch": "^1.0.2"
   },
-  "browserslist": "> 0.25%, not dead"
+  "browserslist": "> 0.25%, not dead",
+  "dependencies": {
+    "salinger": "^2.4.0"
+  }
 }

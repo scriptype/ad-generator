@@ -1,4 +1,4 @@
-function truncate (text, limit, withEllipsis) {
+function truncate(text, limit, withEllipsis) {
   if (limit && limit >= text.length) {
     return text
   }

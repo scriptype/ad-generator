@@ -31,8 +31,10 @@ module.exports = {
     await run('postcss')
   },
 
-  async buildHTML() {
-    await run('handlebars_ad')
+  async buildHTML(data) {
+    await run('handlebars_ad', {
+      data: JSON.stringify(data)
+    })
     await run('html_minifier', {
       IN_PATH: HTML_CONTENT_OUTPUT,
       OUT_PATH: HTML_CONTENT_OUTPUT_MIN
@@ -47,22 +49,24 @@ module.exports = {
     })
   },
 
-  async build() {
+  async build(data) {
     await run('refresh')
     await Promise.all([
       this.buildJS(),
       this.buildCSS(),
-      this.buildHTML()
+      this.buildHTML(data)
     ])
     await this.inlineAssets()
     await run('clean')
     await run('http-server')
   },
 
-  async dev() {
+  async dev(data) {
     await run('refresh')
     await run('copy')
-    await run('handlebars_ad_dev')
+    await run('handlebars_ad_dev', {
+      data: JSON.stringify(data)
+    })
     await run('handlebars_index_dev')
     await Promise.all([
       run('watch', {

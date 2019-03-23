@@ -25,7 +25,5 @@ module.exports = {
   HTML_INPUT: src('index.html'),
   HTML_OUTPUT: dist('index.tmp.html'),
   HTML_OUTPUT_MIN: dist('index.html'),
-  HTML_OUTPUT_DEV: dist('index.html'),
-
-  DATA_PATH: src('data.json')
+  HTML_OUTPUT_DEV: dist('index.html')
 }
