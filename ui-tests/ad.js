@@ -1,3 +1,6 @@
+const testAppData = require('../test-app-itunes.json')
+const { truncate } = require('../lib/utils')
+
 function expectElementToBeVisible(browser, elementName) {
   return (
     browser
@@ -15,6 +18,15 @@ module.exports = {
 
   'Description is visible': function(browser) {
     expectElementToBeVisible(browser, 'ad-description')
+  },
+
+  'Description is correct': function(browser) {
+    browser
+      .expect
+      .element('[data-test-name="ad-description"]')
+      .text
+      .to
+      .equal(truncate(testAppData.description, 157, true))
   },
 
   'CTA Button is visible': function(browser) {

@@ -4,9 +4,10 @@
   "description": "",
   "main": "generator/index.js",
   "scripts": {
-    "test": "npm run test:ui && npm run test:unit",
-    "test:ui": "nightwatch",
+    "test": "npm run test:unit && npm run test:ui",
     "test:unit": "ava",
+    "test:ui": "http-server dist & nightwatch",
+    "posttest:ui": "ps aux | grep http-server | grep ad-generator | awk '{ print $2 }' | xargs kill -9 &2> /dev/null",
     "lint": "eslint .",
     "start": "salinger dev",
     "build": "salinger build"

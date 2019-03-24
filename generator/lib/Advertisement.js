@@ -1,4 +1,4 @@
-const { truncate } = require('../utils')
+const { truncate } = require('../../lib/utils')
 
 class Advertisement {
   constructor(advertisementData) {

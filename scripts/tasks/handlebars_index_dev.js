@@ -1,7 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 const handlebars = require('handlebars')
-const { fileExists } = require('../utils')
+const { fileExists } = require('../../lib/utils')
 
 const {
   DIST,

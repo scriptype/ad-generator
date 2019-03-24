@@ -1,6 +1,6 @@
 const path = require('path')
 const { run } = require('salinger')
-const { fileExists } = require('./utils')
+const { fileExists } = require('../lib/utils')
 
 const envPath = path.join(__dirname, 'env')
 
@@ -49,7 +49,7 @@ module.exports = {
     })
   },
 
-  async build(data) {
+  async build({ test }, data) {
     await run('refresh')
     await Promise.all([
       this.buildJS(),
@@ -58,7 +58,7 @@ module.exports = {
     ])
     await this.inlineAssets()
     await run('clean')
-    await run('http-server')
+    if (!test) await run('http-server')
   },
 
   async dev(data) {

@@ -1,0 +1,50 @@
+{
+  "screenshotUrls": [
+    "https://is3-ssl.mzstatic.com/image/thumb/Purple/v4/58/e9/3f/58e93f38-6ec5-8cdf-74b0-e28cd0e047c1/source/800x500bb.jpg"
+  ],
+  "artworkUrl60": "https://is3-ssl.mzstatic.com/image/thumb/Purple49/v4/a1/93/53/a193537c-3689-8ff7-2fc9-49680bb9bf2c/source/60x60bb.png",
+  "artworkUrl512": "https://is3-ssl.mzstatic.com/image/thumb/Purple49/v4/a1/93/53/a193537c-3689-8ff7-2fc9-49680bb9bf2c/source/512x512bb.png",
+  "artworkUrl100": "https://is3-ssl.mzstatic.com/image/thumb/Purple49/v4/a1/93/53/a193537c-3689-8ff7-2fc9-49680bb9bf2c/source/100x100bb.png",
+  "artistViewUrl": "https://itunes.apple.com/us/developer/onne-gorter/id442007574?mt=12&uo=4",
+  "kind": "mac-software",
+  "averageUserRatingForCurrentVersion": 5,
+  "trackCensoredName": "AntiRSI",
+  "languageCodesISO2A": [
+    "EN"
+  ],
+  "fileSizeBytes": "883278",
+  "sellerUrl": "http://antirsi.onnlucky.com",
+  "contentAdvisoryRating": "4+",
+  "userRatingCountForCurrentVersion": 4,
+  "trackViewUrl": "https://itunes.apple.com/us/app/antirsi/id442007571?mt=12&uo=4",
+  "trackContentRating": "4+",
+  "isVppDeviceBasedLicensingEnabled": true,
+  "sellerName": "Onne Gorter",
+  "releaseDate": "2011-06-10T02:44:20Z",
+  "primaryGenreName": "Health & Fitness",
+  "primaryGenreId": 12007,
+  "formattedPrice": "$5.99",
+  "genreIds": [
+    "12007",
+    "12019"
+  ],
+  "currentVersionReleaseDate": "2016-03-06T02:26:49Z",
+  "currency": "USD",
+  "wrapperType": "software",
+  "version": "3.3.0",
+  "trackId": 442007571,
+  "trackName": "AntiRSI",
+  "artistId": 442007574,
+  "artistName": "Onne Gorter",
+  "genres": [
+    "Health & Fitness",
+    "Utilities"
+  ],
+  "price": 5.99,
+  "description": "AntiRSI is a program for Mac OS X that helps prevent RSI (repetitive strain injury) and other computer related stress. It does so by forcing you to take regular breaks, yet without getting in the way. It also detects natural breaks so it won't force too many breaks on you.\n\n---------------------------------\n   ADDS MANY REQUESTED FEATURES\n---------------------------------\n\nThis is an evolved version from the still free 2.1 version (available here: http://tech.inhelsinki.nl/antirsi/).\n\nNEW:\n\n* AntiRSI can be removed from the Dock and appear in the menu bar.\n\n* Break windows appear on all connected displays.\n\n* Larger break window, screens are no longer 17 inch.\n\n* Possibility to disable micro pause or work breaks.\n\n* Improved compatibility with media players.\n\n* A natural break window (experimental). Helps with reading a lot from the the computer screen. (Feedback appreciated.)\n\n------------\n PLEASE NOTE\n------------\n\nAntiRSI is a reminder tool that can be helpful, but it is not a medical device. If you experience problems, please consult a doctor.",
+  "bundleId": "com.onnlucky.antirsi",
+  "releaseNotes": "* new icon\n* fix launch issues for some people",
+  "minimumOsVersion": "10.7",
+  "averageUserRating": 4,
+  "userRatingCount": 29
+}

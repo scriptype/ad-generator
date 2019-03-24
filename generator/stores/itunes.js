@@ -1,7 +1,7 @@
+const { GET } = require('../../lib/utils')
 const Store = require('../lib/Store')
 const Advertisement = require('../lib/Advertisement')
 const AdvertisementData = require('../lib/AdvertisementData')
-const { GET } = require('../utils')
 
 const fetch = async (id) => {
   let data

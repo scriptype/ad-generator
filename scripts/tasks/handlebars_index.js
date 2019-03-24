@@ -1,6 +1,6 @@
 const fs = require('fs')
 const handlebars = require('handlebars')
-const { maybeFile } = require('../utils')
+const { maybeFile } = require('../../lib/utils')
 
 const {
   JS_OUTPUT_MIN,
