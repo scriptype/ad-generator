@@ -30,7 +30,7 @@ test('Scheme validation: missing key', t => {
   t.plan(3)
 
   try {
-    const myInstance = new MyModel({
+    new MyModel({
       description: 'lorem'
     })
   } catch (e) {
@@ -52,7 +52,7 @@ test('Scheme validation: missing key', t => {
 })
 
 test('Scheme validation: missing a non-required key', t => {
-  const myInstance = new MyModel({
+  new MyModel({
     name: 'lorem',
     favoriteNumber: 5
   })
@@ -63,7 +63,7 @@ test('Scheme validation: missing a non-required key', t => {
 })
 
 test('Scheme validation: passing 0 to a required number field', t => {
-  const myInstance = new MyModel({
+  new MyModel({
     name: 'lorem',
     favoriteNumber: 0
   })
@@ -77,7 +77,7 @@ test('Scheme validation: invalid type', t => {
   t.plan(3)
 
   try {
-    const myInstance = new MyModel({
+    new MyModel({
       name: 5
     })
   } catch (e) {

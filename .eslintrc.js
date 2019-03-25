@@ -7,6 +7,7 @@ module.exports = {
       "named": "never",
       "asyncArrow": "always"
     }],
-    "brace-style": ["error", "never"]
+    "brace-style": "off",
+    "no-new": "off"
   }
 }

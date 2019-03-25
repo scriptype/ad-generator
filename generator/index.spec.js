@@ -1,4 +1,3 @@
-const { statSync } = require('fs')
 const { exec } = require('child_process')
 const test = require('ava')
 const { fileExists } = require('../lib/utils')
