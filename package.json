@@ -4,13 +4,10 @@
   "description": "",
   "main": "generator/index.js",
   "scripts": {
-    "test": "npm run test:unit && npm run test:ui",
-    "test:unit": "ava",
-    "test:ui": "http-server dist & nightwatch",
-    "posttest:ui": "ps aux | grep http-server | grep ad-generator | awk '{ print $2 }' | xargs kill -9 &2> /dev/null",
-    "lint": "eslint .",
-    "start": "salinger dev",
-    "build": "salinger build"
+    "test": "salinger test",
+    "test:unit": "salinger testUnit",
+    "test:ui": "salinger testUI",
+    "lint": "eslint ."
   },
   "keywords": [],
   "author": "",

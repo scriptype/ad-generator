@@ -78,5 +78,21 @@ module.exports = {
       run('livereload'),
       run('http-server')
     ])
+  },
+
+  async testUnit() {
+    await run('ava')
+  },
+
+  async testUI() {
+    run('build-example')
+    await run('sleep', { seconds: 6 })
+    await run('nightwatch')
+    await run('kill-http-server')
+  },
+
+  async test() {
+    await this.testUnit()
+    await this.testUI()
   }
 }
