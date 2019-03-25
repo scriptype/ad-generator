@@ -49,7 +49,7 @@ module.exports = {
     })
   },
 
-  async build({ test }, data) {
+  async build({ serve }, data) {
     await run('refresh')
     await Promise.all([
       this.buildJS(),
@@ -58,7 +58,7 @@ module.exports = {
     ])
     await this.inlineAssets()
     await run('clean')
-    if (!test) await run('http-server')
+    if (serve) await run('http-server')
   },
 
   async dev(data) {

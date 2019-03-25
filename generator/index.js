@@ -15,11 +15,11 @@ const task = (() => {
     case '--dev':
       return tasks.dev.bind(tasks)
 
-    case '--test':
-      return tasks.build.bind(tasks, { test: true })
+    case '--serve':
+      return tasks.build.bind(tasks, { serve: true })
 
     default:
-      return tasks.build.bind(tasks, { test: false })
+      return tasks.build.bind(tasks, {})
   }
 })()
 
