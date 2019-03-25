@@ -1,6 +1,6 @@
 # Ad Generator
 
-Produces a single image advertisement with the given data
+Generates a highly-optimized advertisement for apps from itunes store.
 
 ## Setup
 

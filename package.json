@@ -1,7 +1,7 @@
 {
   "name": "task1-interstitial-ad-unit",
   "version": "1.0.0",
-  "description": "",
+  "description": "Generates a highly-optimized advertisement for apps from itunes store.",
   "main": "generator/index.js",
   "scripts": {
     "test": "salinger test",
