@@ -85,6 +85,16 @@ node generator example
 node generator example --serve
 ```
 
+Same goals can be achieved npm scripts:
+
+```sh
+# Start dev environment
+npm start
+
+# Generate and finalize the advertisement. Will also start http-server.
+npm run build
+```
+
 ## Test
 
 For running all tests (unit and ui automation), run the command below:
