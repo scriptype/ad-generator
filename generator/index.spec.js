@@ -6,7 +6,7 @@ const { HTML_OUTPUT_MIN } = require('../scripts/env')
 const testAppData = require('../test-app-itunes.json')
 
 test.cb('Generator generates HTML', t => {
-  const ps = exec(`node generator ${testAppData.trackId} --test`)
+  const ps = exec(`node generator ${testAppData.trackId}`)
 
   ps.stderr.pipe(process.stderr)
 
