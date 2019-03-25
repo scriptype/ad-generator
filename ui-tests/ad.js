@@ -31,6 +31,17 @@ module.exports = {
 
   'CTA Button is visible': function(browser) {
     expectElementToBeVisible(browser, 'ad-cta')
+  },
+
+  'CTA Button contains price': function(browser) {
+    const { formattedPrice } = testAppData
+    const pricePattern = new RegExp(formattedPrice.replace('$', ''), 'gi')
+    browser
+      .expect
+      .element('[data-test-name="ad-cta"]')
+      .text
+      .to
+      .match(pricePattern)
     browser.end()
   }
 }
