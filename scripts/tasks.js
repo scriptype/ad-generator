@@ -32,18 +32,18 @@ module.exports = {
   },
 
   async buildHTML(data) {
-    await run('handlebars_ad', {
+    await run('handlebars-ad', {
       data: JSON.stringify(data)
     })
-    await run('html_minifier', {
+    await run('html-minifier', {
       IN_PATH: HTML_CONTENT_OUTPUT,
       OUT_PATH: HTML_CONTENT_OUTPUT_MIN
     })
   },
 
   async inlineAssets() {
-    await run('handlebars_index')
-    await run('html_minifier', {
+    await run('handlebars-index')
+    await run('html-minifier', {
       IN_PATH: HTML_OUTPUT,
       OUT_PATH: HTML_OUTPUT_MIN
     })
@@ -64,15 +64,15 @@ module.exports = {
   async dev(data) {
     await run('refresh')
     await run('copy')
-    await run('handlebars_ad_dev', {
+    await run('handlebars-ad-dev', {
       data: JSON.stringify(data)
     })
-    await run('handlebars_index_dev')
+    await run('handlebars-index-dev')
     await Promise.all([
       run('watch', {
         ON_UPDATE_TEMPLATE: JSON.stringify([
-          'handlebars_ad_dev',
-          'handlebars_index_dev'
+          'handlebars-ad-dev',
+          'handlebars-index-dev'
         ])
       }),
       run('livereload'),
