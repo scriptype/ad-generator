@@ -1,1 +1,1 @@
-node generator example --serve
+node generator $type example --serve

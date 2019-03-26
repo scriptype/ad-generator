@@ -88,15 +88,18 @@ module.exports = {
     await run('ava')
   },
 
-  async testUI() {
-    run('build-example')
+  async testUI(type) {
+    const types = ['single', 'carousel']
+    const skiptags = types.filter(t => t !== type).join(',')
+    run('build-example', { type })
     await run('sleep', { seconds: 6 })
-    await run('nightwatch')
+    await run('nightwatch', { skiptags })
     await run('kill-http-server')
   },
 
   async test() {
     await this.testUnit()
-    await this.testUI()
+    await this.testUI('single')
+    await this.testUI('carousel')
   }
 }

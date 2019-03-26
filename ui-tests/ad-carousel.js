@@ -11,12 +11,10 @@ function expectElementToBeVisible(browser, elementName) {
 }
 
 module.exports = {
-  'Banner is visible': function(browser) {
-    browser.url('http://localhost:8080')
-    expectElementToBeVisible(browser, 'ad-banner')
-  },
+  '@tags': ['carousel'],
 
   'Description is visible': function(browser) {
+    browser.url('http://localhost:8080')
     expectElementToBeVisible(browser, 'ad-description')
   },
 

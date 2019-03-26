@@ -1,1 +1,1 @@
-$BIN/nightwatch
+$BIN/nightwatch --skiptags $skiptags
