@@ -5,6 +5,7 @@ const { run } = require('salinger')
 const {
   SRC,
   DIST,
+  type,
   data,
   onUpdateTemplate
 } = process.env
@@ -39,7 +40,7 @@ const afterUpsert = async (f, curr, prev) => {
   if (/\.(html|json)$/.test(f)) {
     const tasksToRun = JSON.parse(onUpdateTemplate)
     for (const [, task] of tasksToRun.entries()) {
-      await run(task, { data })
+      await run(task, { type, data })
     }
   }
 }

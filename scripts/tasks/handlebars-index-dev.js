@@ -7,7 +7,7 @@ const {
   DIST,
   JS_OUTPUT,
   CSS_OUTPUT,
-  HTML_CONTENT_OUTPUT,
+  HTML_AD_OUTPUT,
   HTML_INPUT,
   HTML_OUTPUT_DEV
 } = process.env
@@ -38,7 +38,7 @@ if (fileExists(CSS_OUTPUT)) {
   )
 }
 
-const content = fs.readFileSync(HTML_CONTENT_OUTPUT, 'utf-8')
+const content = fs.readFileSync(HTML_AD_OUTPUT, 'utf-8')
 const html = fs.readFileSync(HTML_INPUT, 'utf-8')
 const template = handlebars.compile(html)
 

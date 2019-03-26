@@ -3,29 +3,61 @@ const handlebars = require('handlebars')
 const image2base64 = require('image-to-base64')
 
 const {
-  HTML_CONTENT_INPUT,
-  HTML_CONTENT_OUTPUT,
+  HTML_AD_SINGLE_INPUT,
+  HTML_AD_CAROUSEL_INPUT,
+  HTML_AD_OUTPUT,
+  type,
   data
 } = process.env
 
-const html = fs.readFileSync(HTML_CONTENT_INPUT, 'utf-8')
+const templateFile = type === 'single'
+  ? HTML_AD_SINGLE_INPUT
+  : HTML_AD_CAROUSEL_INPUT
+
+const html = fs.readFileSync(templateFile, 'utf-8')
 const template = handlebars.compile(html)
 const dataObject = JSON.parse(data)
 
-image2base64(dataObject.img.src)
-  .then(response => {
-    const dataUrl = `data:image/jpeg;base64,${response}`
-    const output = template({
-      ...dataObject,
-      ...{
+prepareTemplateData(dataObject, type)
+  .then(templateData => {
+    const output = template(templateData)
+    fs.writeFileSync(HTML_AD_OUTPUT, output)
+  })
+  .catch(console.error)
+
+async function prepareTemplateData(appData, templateType) {
+  let dataModifier
+  switch (templateType) {
+    case 'single':
+      dataModifier = {
         img: {
-          ...dataObject.img,
-          src: dataUrl
+          ...appData.img,
+          src: await imageToBase64(appData.img.src)
         }
       }
-    })
-    fs.writeFileSync(HTML_CONTENT_OUTPUT, output)
-  })
-  .catch(error => {
-    console.error(error)
-  })
+      break
+
+    case 'carousel':
+      dataModifier = {
+        images: await Promise.all(
+          appData.images.map(
+            async (img) => ({
+              ...img,
+              src: await imageToBase64(img.src)
+            })
+          )
+        )
+      }
+      break
+  }
+
+  return {
+    ...appData,
+    ...dataModifier
+  }
+}
+
+async function imageToBase64(imageSrc) {
+  const response = await image2base64(imageSrc)
+  return `data:image/jpeg;base64,${response}`
+}

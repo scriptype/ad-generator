@@ -1,0 +1,26 @@
+<div class="ad-unit" data-test-name="ad-unit">
+    <div class="ad-unit__banner-container">
+        {{#each images}}
+            <img
+                class=""
+                data-test-name=""
+                src="{{ src }}"
+                alt="{{ alt }}"
+            />
+        {{/each}}
+    </div>
+
+    <p class="ad-unit__description" data-test-name="ad-description">
+        {{ description }}
+    </p>
+
+    <div class="ad-unit__cta-container">
+        <button
+            class="button button--primary ad-unit__cta"
+            data-test-name="ad-cta"
+            type="button"
+        >
+            {{ buttonText }}
+        </button>
+    </div>
+</div>

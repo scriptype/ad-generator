@@ -1,20 +1,37 @@
 const { truncate } = require('../../lib/utils')
 
 class Advertisement {
-  constructor(advertisementData) {
+  constructor(advertisementData, type) {
     this.data = advertisementData
+    this.type = type
   }
 
   toJSON() {
-    const { id, images, name } = this.data
+    const { id } = this.data
     return {
       id,
-      img: {
-        src: images[0],
-        alt: `Screenshot of ${name}`
-      },
+      ...this.getImages(),
       description: this.getDescription(),
       buttonText: this.getButtonText()
+    }
+  }
+
+  getImages() {
+    const { images, name } = this.data
+    if (this.type === 'single') {
+      return {
+        img: {
+          src: images[0],
+          alt: `Screenshot of ${name}`
+        }
+      }
+    } else if (this.type === 'carousel') {
+      return {
+        images: images.map(img => ({
+          src: img,
+          alt: `Screenshot of ${name}`
+        }))
+      }
     }
   }
 

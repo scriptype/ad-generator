@@ -7,8 +7,8 @@ const envPath = path.join(__dirname, 'env')
 const {
   JS_INPUT,
   CSS_INPUT,
-  HTML_CONTENT_OUTPUT,
-  HTML_CONTENT_OUTPUT_MIN,
+  HTML_AD_OUTPUT,
+  HTML_AD_OUTPUT_MIN,
   HTML_OUTPUT,
   HTML_OUTPUT_MIN
 } = require(envPath)
@@ -31,13 +31,14 @@ module.exports = {
     await run('postcss')
   },
 
-  async buildHTML(data) {
+  async buildHTML(data, type) {
     await run('handlebars-ad', {
+      type,
       data: JSON.stringify(data)
     })
     await run('html-minifier', {
-      IN_PATH: HTML_CONTENT_OUTPUT,
-      OUT_PATH: HTML_CONTENT_OUTPUT_MIN
+      IN_PATH: HTML_AD_OUTPUT,
+      OUT_PATH: HTML_AD_OUTPUT_MIN
     })
   },
 
@@ -49,27 +50,29 @@ module.exports = {
     })
   },
 
-  async build({ serve }, data) {
+  async build({ type, serve }, data) {
     await run('refresh')
     await Promise.all([
       this.buildJS(),
       this.buildCSS(),
-      this.buildHTML(data)
+      this.buildHTML(data, type)
     ])
     await this.inlineAssets()
     await run('clean')
     if (serve) await run('http-server')
   },
 
-  async dev(data) {
+  async dev({ type }, data) {
     await run('refresh')
     await run('copy')
     await run('handlebars-ad-dev', {
+      type,
       data: JSON.stringify(data)
     })
     await run('handlebars-index-dev')
     await Promise.all([
       run('watch', {
+        type,
         data: JSON.stringify(data),
         onUpdateTemplate: JSON.stringify([
           'handlebars-ad-dev',

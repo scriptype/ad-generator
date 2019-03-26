@@ -3,7 +3,7 @@ const Store = require('../lib/Store')
 const Advertisement = require('../lib/Advertisement')
 const AdvertisementData = require('../lib/AdvertisementData')
 
-const fetch = async (id) => {
+const fetch = async (id, adType) => {
   let data
   try {
     data = await GET(`https://itunes.apple.com/lookup?id=${id}`)
@@ -20,7 +20,7 @@ const fetch = async (id) => {
     price: app.price,
     formattedPrice: app.formattedPrice
   })
-  const advertisement = new Advertisement(advertisementData)
+  const advertisement = new Advertisement(advertisementData, adType)
   return advertisement.toJSON()
 }
 

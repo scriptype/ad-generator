@@ -4,8 +4,10 @@
   "description": "Generates a highly-optimized advertisement for apps from itunes store.",
   "main": "generator/index.js",
   "scripts": {
-    "start": "node generator example --dev",
-    "build": "node generator example --serve",
+    "start:single": "node generator single example --dev",
+    "start:carousel": "node generator carousel example --dev",
+    "build:single": "node generator single example --serve",
+    "build:carousel": "node generator carousel example --serve",
     "test": "salinger test",
     "test:unit": "salinger testUnit",
     "test:ui": "salinger testUI",

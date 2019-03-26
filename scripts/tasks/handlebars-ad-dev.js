@@ -2,14 +2,20 @@ const fs = require('fs')
 const handlebars = require('handlebars')
 
 const {
-  HTML_CONTENT_INPUT,
-  HTML_CONTENT_OUTPUT,
+  HTML_AD_SINGLE_INPUT,
+  HTML_AD_CAROUSEL_INPUT,
+  HTML_AD_OUTPUT,
+  type,
   data
 } = process.env
 
-const html = fs.readFileSync(HTML_CONTENT_INPUT, 'utf-8')
+const templateFile = type === 'single'
+  ? HTML_AD_SINGLE_INPUT
+  : HTML_AD_CAROUSEL_INPUT
+
+const html = fs.readFileSync(templateFile, 'utf-8')
 const template = handlebars.compile(html)
 const dataObject = JSON.parse(data)
 
 const output = template(dataObject)
-fs.writeFileSync(HTML_CONTENT_OUTPUT, output)
+fs.writeFileSync(HTML_AD_OUTPUT, output)
