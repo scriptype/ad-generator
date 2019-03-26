@@ -18,10 +18,16 @@ $ npm i
 ## Generator CLI
 
 ```sh
-node generator <id> [<options>]
+node generator <type> <id> [<options>]
 ```
 
-### `id`
+### type (single | carousel)
+
+`single`: Generate a single image advertisement
+
+`carousel`: Generate an advertisement with multiple images shown in a carousel.
+
+### id (example | [app-id])
 
 `example`: If you pass `example`, it will generate advertisement for the app that's used
 for testing in the project. See `test-app-itunes.json`.
@@ -29,7 +35,7 @@ for testing in the project. See `test-app-itunes.json`.
 `id`: If you pass an application id here, it will generate ad for the
 given application.
 
-### `options`
+### options [--serve | --dev]
 
 When omitted, it will generate an ad, minify the output code and inline all assets
 into the generated html file.
@@ -43,7 +49,7 @@ into the generated html file.
 To generate advertisement for an application, run:
 
 ```sh
-node generator <id> --dev
+node generator <type> <id> --dev
 ```
 
 Then open `localhost:8080` in your browser.
@@ -56,7 +62,7 @@ automatically refreshed upon changes.
 To finalize the work and produce a minimal build output, run:
 
 ```sh
-node generator <id>
+node generator <type> <id>
 ```
 
 This will minify and inline all assets directly into html.
@@ -64,35 +70,41 @@ This will minify and inline all assets directly into html.
 You can add `--serve` flag at the end, to also serve the `dist` folder:
 
 ```sh
-node generator <id> --serve
+node generator <type> <id> --serve
 ```
 
 You can check `localhost:8080` after the build process is completed.
 
 ## Working on a test application
 
-If you pass `example` as the first argument to Generator, it will generate ad for
-the selected example application. This can be useful for test purposes.
+If you pass `example` as the second argument (as `<id>`) to Generator, it will
+generate ad for the selected example application. This can be useful for test purposes.
 
 ```sh
 # Start dev environment with example app
-node generator example --dev
+node generator <type> example --dev
 
 # Build optimized ad
-node generator example
+node generator <type> example
 
 # Also serve the output folder
-node generator example --serve
+node generator <type> example --serve
 ```
 
 Same goals can be achieved npm scripts:
 
 ```sh
-# Start dev environment
-npm start
+# Start dev environment with single image ad
+npm start:single
+
+# Start dev environment with carousel ad
+npm start:carousel
 
 # Generate and finalize the advertisement. Will also start http-server.
-npm run build
+npm run build:single
+
+# Same, but carousel ad
+npm run build:carousel
 ```
 
 ## Test
@@ -106,9 +118,10 @@ npm test
 Unit and UI tests can also be run separately:
 
 ```sh
-# Runs UI tests
-npm run test:ui
+# Run UI tests
+npm run test:ui single
+npm run test:ui carousel
 
-# Runs unit tests
+# Run unit tests
 npm run test:unit
 ```
