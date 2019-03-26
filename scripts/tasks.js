@@ -70,7 +70,8 @@ module.exports = {
     await run('handlebars-index-dev')
     await Promise.all([
       run('watch', {
-        ON_UPDATE_TEMPLATE: JSON.stringify([
+        data: JSON.stringify(data),
+        onUpdateTemplate: JSON.stringify([
           'handlebars-ad-dev',
           'handlebars-index-dev'
         ])

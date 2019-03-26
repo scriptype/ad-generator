@@ -5,7 +5,8 @@ const { run } = require('salinger')
 const {
   SRC,
   DIST,
-  ON_UPDATE_TEMPLATE
+  data,
+  onUpdateTemplate
 } = process.env
 
 watch.watchTree(SRC, (f, curr, prev) => {
@@ -36,9 +37,9 @@ watch.watchTree(SRC, (f, curr, prev) => {
 
 const afterUpsert = async (f, curr, prev) => {
   if (/\.(html|json)$/.test(f)) {
-    const tasksToRun = JSON.parse(ON_UPDATE_TEMPLATE)
+    const tasksToRun = JSON.parse(onUpdateTemplate)
     for (const [, task] of tasksToRun.entries()) {
-      await run(task)
+      await run(task, { data })
     }
   }
 }
