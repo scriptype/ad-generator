@@ -1,6 +1,7 @@
 .ad-unit {
+    --padding: 13px;
     height: 100%;
-    padding: 13px;
+    padding: var(--padding);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -12,6 +13,9 @@
 
 .ad-unit__banner {
     max-width: 100%;
+    /* Make height same as width: ( screen-width - (padding * 2) ) */
+    height: calc(100vw - var(--padding) * 2);
+    object-fit: cover;
     border-radius: 6px;
 }
 
