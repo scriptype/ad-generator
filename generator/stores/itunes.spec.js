@@ -1,7 +1,6 @@
 const test = require('ava')
 const itunes = require('./itunes')
-
-const exampleAppId = 442007571
+const exampleAppId = require('../../test-app-itunes.json').trackId
 
 test('fetch', async (t) => {
   try {
