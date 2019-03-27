@@ -1,1 +1,1 @@
-$BIN/http-server $DIST
+$BIN/http-server $DIST -c-1
