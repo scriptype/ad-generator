@@ -2,6 +2,8 @@
     --padding: 13px;
     height: 100%;
     padding: var(--padding);
+    /* This is to workaround the top-bar resizing issue in mobile browsers */
+    position: fixed;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
