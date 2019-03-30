@@ -58,7 +58,7 @@ const Carousel = (() => {
   }
 
   function activatePanel() {
-    const { items, container } = options
+    const { items, container, speed } = options
     const panelsWithPositions = items.map((item, index) => {
       return {
         item,
@@ -77,7 +77,7 @@ const Carousel = (() => {
 
     container.style.cssText += `;
       transform: translateX(${-itemWidth * panelToActivate.index}px);
-      transition: transform .3s;
+      transition: transform ${speed}ms;
     `
 
     items.forEach(item => {
