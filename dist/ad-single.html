@@ -1,13 +1,11 @@
 <div class="ad-unit" data-test-name="ad-unit">
-    <div class="ad-unit__carousel" id="ad-carousel">
-        {{#each images}}
-            <img
-                class="ad-unit__banner"
-                data-test-name=""
-                src="{{ src }}"
-                alt="{{ alt }}"
-            />
-        {{/each}}
+    <div class="ad-unit__banner-container">
+        <img
+            class="ad-unit__banner"
+            data-test-name="ad-banner"
+            src="{{ img.src }}"
+            alt="{{ img.alt }}"
+        />
     </div>
 
     <p class="ad-unit__description" data-test-name="ad-description">

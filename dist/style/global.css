@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    font: normal 16px/1.5 helvetica, sans-serif;
+}
+
+/* Responsive font-size */
+@media (orientation: portrait) {
+    body {
+        font-size: 4.5vw;
+    }
+}
+
+@media (orientation: landscape) {
+    body {
+        font-size: 4vh;
+    }
+}
+
+/* Minimum font-size */
+@media (max-width: 300px), (max-height: 300px) {
+    body {
+        font-size: 14px;
+    }
+}
+
+/* Maximum font-size */
+@media (min-width: 640px) and (min-height: 640px) {
+    body {
+        font-size: 24px;
+    }
+}
+
+img {
+    vertical-align: middle;
+}
