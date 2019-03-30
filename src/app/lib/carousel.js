@@ -5,8 +5,7 @@ const Carousel = (() => {
     EL: 'js-carousel-el',
     CONTAINER: 'js-carousel-container',
     ITEM: 'js-carousel-item',
-    ITEM_ACTIVE: 'js-carousel-item--active',
-    ITEM_CONTENT: 'js-carousel-item-content',
+    ITEM_ACTIVE: 'js-carousel-item--active'
   }
 
   const STYLE_TAG_ID = 'carousel-style'
@@ -16,7 +15,13 @@ const Carousel = (() => {
     container: null,
     items: [],
     itemContents: [],
-    speed: .3
+    speed: 100,
+    style: {
+      el: '',
+      container: '',
+      item: '',
+      itemActive: ''
+    }
   }
 
   const state = {
@@ -44,7 +49,7 @@ const Carousel = (() => {
   function move(state, el) {
     return event => {
       if (state.pressed) {
-        const left = el.getBoundingClientRect().left - 13
+        const left = el.getBoundingClientRect().left
         const clientX = getX(event)
         const direction = state.x < clientX ? 1 : state.x > clientX ? -1 : 0
         const diff = Math.abs(state.x - clientX) * direction
@@ -95,9 +100,6 @@ const Carousel = (() => {
     container.classList.add(classNames.CONTAINER)
     items.forEach(item => {
       item.classList.add(classNames.ITEM)
-      ;[...item.children].forEach(child => {
-        child.classList.add(classNames.ITEM_CONTENT)
-      })
     })
   }
 
@@ -125,20 +127,24 @@ const Carousel = (() => {
   }
 
   function getCSS() {
+    const { items, style } = options
+
     const dimensions = getDimensions()
 
-    const { items } = options
     const itemMaxWidth = dimensions.el.width
     const containerWidth = dimensions.el.width * items.length
     const containerHeight = dimensions.item.height
 
     return `
-      .${classNames.EL} {}
+      .${classNames.EL} {
+        ${style.el};
+      }
 
       .${classNames.CONTAINER} {
         width: ${containerWidth}px;
         height: ${containerHeight}px;
         overflow: hidden;
+        ${style.container};
       }
 
       .${classNames.ITEM} {
@@ -146,15 +152,13 @@ const Carousel = (() => {
         float: left;
         text-align: center;
         opacity: .3;
-        transition: opacity ${options.speed}s;
+        transition: opacity ${options.speed}ms;
+        ${style.item};
       }
 
       .${classNames.ITEM_ACTIVE} {
         opacity: 1;
-      }
-
-      .${classNames.ITEM_CONTENT} {
-        max-width: ${itemMaxWidth}px;
+        ${style.itemActive};
       }
     `
   }
@@ -193,9 +197,10 @@ const Carousel = (() => {
     container.addEventListener('touchcancel', onTouchEnd)
   }
 
-  function init({ el, speed }) {
+  function init({ el, speed, style }) {
     options.el = el
     options.speed = speed || options.speed
+    options.style = Object.assign(options.style, style)
     options.itemContents = [...el.children]
     options.container = getContainer()
     options.items = [...options.container.children]
@@ -209,6 +214,5 @@ const Carousel = (() => {
     init
   })
 })()
-
 
 export default Carousel

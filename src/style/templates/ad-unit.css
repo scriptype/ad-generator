@@ -1,8 +1,8 @@
 .ad-unit {
     --padding: 13px;
-    --width: calc(100vw - var(--padding) * 2);
+    --width: calc(100vw);
     height: 100%;
-    padding: var(--padding);
+    padding: var(--padding) 0;
     /* This is to workaround the top-bar resizing issue in mobile browsers */
     position: fixed;
     display: flex;
@@ -26,13 +26,14 @@
 }
 
 .ad-unit__description {
-    padding: 0 .75em;
+    padding: 0 calc(var(--padding) + .75em);
     font-size: 1em;
     line-height: 1.3;
     text-align: center;
 }
 
 .ad-unit__cta-container {
+    padding: 0 var(--padding) ;
     text-align: center;
 }
 

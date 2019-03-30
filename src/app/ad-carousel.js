@@ -6,7 +6,14 @@ const ui = {
 
 function init() {
   carousel.init({
-    el: ui.$adCarousel
+    el: ui.$adCarousel,
+    speed: 300,
+    style: {
+      item: `
+        padding-left: var(--padding);
+        padding-right: var(--padding);
+      `
+    }
   })
 }
 
