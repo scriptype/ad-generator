@@ -33,7 +33,7 @@
 }
 
 .ad-unit__cta {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Open Sans', helvetica, sans-serif;
 }
 
 @media (max-width: 1000px) and (orientation: portrait) {
