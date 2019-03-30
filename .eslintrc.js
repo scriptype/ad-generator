@@ -1,6 +1,7 @@
 module.exports = {
   "extends": "standard",
   "parser": "babel-eslint",
+  "env": ["browser"],
   "rules": {
     "space-before-function-paren": ["error", {
       "anonymous": "never",
