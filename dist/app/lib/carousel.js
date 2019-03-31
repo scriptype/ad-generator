@@ -335,6 +335,7 @@ function carousel(params) {
         container: '',
         indicators: '',
         indicator: '',
+        indicatorActive: '',
         item: '',
         itemActive: ''
       }, classNames)

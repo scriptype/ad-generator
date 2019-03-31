@@ -71,7 +71,15 @@
             height: auto;
             padding: 3px;
             border-radius: 12px;
-            background: rgba(255, 255, 255, .75);
+            background: rgba(255, 255, 255, .5);
+        }
+
+        .ad-unit__carousel-indicator::after {
+            background: rgba(0, 0, 0, .6);
+        }
+
+        .ad-unit__carousel-indicator--active::after {
+            background: black;
         }
     }
 }
