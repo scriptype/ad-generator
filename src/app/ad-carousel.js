@@ -1,12 +1,8 @@
 import carousel from './lib/carousel.js'
 
-const ui = {
-  $adCarousel: document.getElementById('ad-carousel')
-}
-
 function init() {
   carousel({
-    el: ui.$adCarousel,
+    el: document.getElementById('ad-carousel'),
     showIndicators: true,
     speed: 300,
     classNames: {
