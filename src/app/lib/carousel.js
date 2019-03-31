@@ -149,12 +149,6 @@ function getContainer(el, itemContents) {
   return container
 }
 
-function reset(options, state) {
-  const css = getCSS(options)
-  addStyles(css)
-  activatePanel(options, state)
-}
-
 function addEventListeners(options, state) {
   const { container } = options
   const onResize = reset.bind(null, options, state)
@@ -165,11 +159,19 @@ function addEventListeners(options, state) {
 
   container.addEventListener('mousedown', onTouchStart)
   container.addEventListener('touchstart', onTouchStart)
+
   window.addEventListener('mousemove', onTouchMove)
   container.addEventListener('touchmove', onTouchMove)
+
   window.addEventListener('mouseup', onTouchEnd)
   container.addEventListener('touchend', onTouchEnd)
   container.addEventListener('touchcancel', onTouchEnd)
+}
+
+function reset(options, state) {
+  const css = getCSS(options)
+  addStyles(css)
+  activatePanel(options, state)
 }
 
 function init({ el, speed, alternateSpeed, style }) {
