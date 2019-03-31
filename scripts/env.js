@@ -10,9 +10,12 @@ module.exports = {
   SRC: src(),
   DIST: dist(),
 
-  JS_INPUT: src('app.js'),
-  JS_OUTPUT: dist('app.js'),
-  JS_OUTPUT_MIN: dist('app.min.js'),
+  JS_CAROUSEL_INPUT: src('app-carousel.js'),
+  JS_CAROUSEL_OUTPUT: dist('app-carousel.js'),
+  JS_CAROUSEL_OUTPUT_MIN: dist('app-carousel.min.js'),
+  JS_SINGLE_INPUT: src('app-single.js'),
+  JS_SINGLE_OUTPUT: dist('app-single.js'),
+  JS_SINGLE_OUTPUT_MIN: dist('app-single.min.js'),
 
   CSS_INPUT: src('style.css'),
   CSS_OUTPUT: dist('style.css'),

@@ -5,7 +5,12 @@ const { fileExists } = require('../lib/utils')
 const envPath = path.join(__dirname, 'env')
 
 const {
-  JS_INPUT,
+  JS_SINGLE_INPUT,
+  JS_SINGLE_OUTPUT,
+  JS_SINGLE_OUTPUT_MIN,
+  JS_CAROUSEL_INPUT,
+  JS_CAROUSEL_OUTPUT,
+  JS_CAROUSEL_OUTPUT_MIN,
   CSS_INPUT,
   HTML_AD_OUTPUT,
   HTML_AD_OUTPUT_MIN,
@@ -13,14 +18,30 @@ const {
   HTML_OUTPUT_MIN
 } = require(envPath)
 
+const jsFiles = {
+  single: {
+    input: JS_SINGLE_INPUT,
+    output: JS_SINGLE_OUTPUT,
+    minified: JS_SINGLE_OUTPUT_MIN
+  },
+  carousel: {
+    input: JS_CAROUSEL_INPUT,
+    output: JS_CAROUSEL_OUTPUT,
+    minified: JS_CAROUSEL_OUTPUT_MIN
+  }
+}
+
 module.exports = {
-  async buildJS() {
-    if (!fileExists(JS_INPUT)) {
-      console.info(`${JS_INPUT} doesn't exist. Skipping building JS.`)
+  async buildJS(type) {
+    if (!fileExists(jsFiles[type].input)) {
+      console.info(`${jsFiles[type].input} doesn't exist. Skipping building JS.`)
       return Promise.resolve()
     }
-    await run('browserify')
-    await run('uglify')
+    await run('browserify', jsFiles[type])
+    await run('uglify', {
+      input: jsFiles[type].output,
+      output: jsFiles[type].minified
+    })
   },
 
   async buildCSS() {
@@ -42,8 +63,10 @@ module.exports = {
     })
   },
 
-  async inlineAssets() {
-    await run('handlebars-index')
+  async inlineAssets(type) {
+    await run('handlebars-index', {
+      JS_OUTPUT_MIN: jsFiles[type].minified
+    })
     await run('html-minifier', {
       IN_PATH: HTML_OUTPUT,
       OUT_PATH: HTML_OUTPUT_MIN
@@ -53,11 +76,11 @@ module.exports = {
   async build({ type, serve }, data) {
     await run('refresh')
     await Promise.all([
-      this.buildJS(),
+      this.buildJS(type),
       this.buildCSS(),
       this.buildHTML(data, type)
     ])
-    await this.inlineAssets()
+    await this.inlineAssets(type)
     await run('clean')
     if (serve) await run('http-server')
   },
@@ -69,7 +92,9 @@ module.exports = {
       type,
       data: JSON.stringify(data)
     })
-    await run('handlebars-index-dev')
+    await run('handlebars-index-dev', {
+      JS_OUTPUT: jsFiles[type].output
+    })
     await Promise.all([
       run('watch', {
         type,

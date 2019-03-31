@@ -1,4 +1,4 @@
-$BIN/uglifyjs $JS_OUTPUT \
+$BIN/uglifyjs $input \
   --mangle \
   --compress \
-  --output $JS_OUTPUT_MIN
+  --output $output
