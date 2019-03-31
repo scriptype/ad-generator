@@ -206,21 +206,23 @@ function carousel(params) {
       }
     })
 
-    ;[...indicators.children].forEach((indicator, index) => {
-      if (index === panelIndex) {
-        addClass(
-          indicator,
-          defaultClassNames.INDICATOR_ACTIVE,
-          classNames.indicatorActive
-        )
-      } else {
-        removeClass(
-          indicator,
-          defaultClassNames.INDICATOR_ACTIVE,
-          classNames.indicatorActive
-        )
-      }
-    })
+    if (indicators) {
+      ;[...indicators.children].forEach((indicator, index) => {
+        if (index === panelIndex) {
+          addClass(
+            indicator,
+            defaultClassNames.INDICATOR_ACTIVE,
+            classNames.indicatorActive
+          )
+        } else {
+          removeClass(
+            indicator,
+            defaultClassNames.INDICATOR_ACTIVE,
+            classNames.indicatorActive
+          )
+        }
+      })
+    }
 
     state.active = panelIndex
   }
