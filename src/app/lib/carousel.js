@@ -48,7 +48,7 @@ function carousel(params) {
 
     return `
       .${EL} {
-        --js-carousel-indicator-size: .5em;
+        --js-carousel-indicator-size: .6em;
         position: relative;
         ${style.el};
       }
@@ -63,36 +63,40 @@ function carousel(params) {
       .${INDICATORS} {
         position: absolute;
         left: 50%;
-        top: calc(100% + var(--js-carousel-indicator-size));
-        display: inline-block;
-        height: var(--js-carousel-indicator-size);
-        overflow: hidden;
+        top: 100%;
+        display: flex;
+        align-items: center;
         transform: translate(-50%, 0);
         ${style.indicators};
       }
 
       .${INDICATOR} {
-        display: block;
-        float: left;
+        width: calc(var(--js-carousel-indicator-size) * 2.5);
+        height: calc(var(--js-carousel-indicator-size) * 2.5);
+        position: relative;
+        ${style.indicator};
+      }
+
+      .${INDICATOR}::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
         width: var(--js-carousel-indicator-size);
         height: var(--js-carousel-indicator-size);
         background: rgba(0, 0, 0, .5);
         box-shadow: 0 0 0 rgba(255, 255, 255, .5);
         border-radius: 50%;
-        vertical-align: middle;
-        transform: scale(.66);
+        transform: translate(-50%, -50%) scale(.66);
         transition: all ${speed}ms;
-        ${style.indicator};
+        ${style.indicatorDot};
       }
 
-      .${INDICATOR}:not(:first-child) {
-        margin-left: calc(var(--js-carousel-indicator-size) * 2);
-      }
-
-      .${INDICATOR_ACTIVE} {
+      .${INDICATOR_ACTIVE}::after {
         background: rgba(0, 0, 0, .75);
         box-shadow: 0 0 0 rgba(255, 255, 255, .75);
-        transform: scale(1);
+        transform: translate(-50%, -50%) scale(1);
+        ${style.activeIndicatorDot};
       }
 
       .${ITEM} {
@@ -126,15 +130,16 @@ function carousel(params) {
     return event.clientX || event.touches[0].clientX
   }
 
-  function togglePressed(isActive) {
+  function togglePressed(pressed) {
     return event => {
-      if (state.pressed === isActive) {
+      if (state.pressed === pressed) {
         return
       }
-      state.pressed = isActive
-      state.x = isActive ? getX(event) : -1
-      if (!isActive) {
-        activatePanel()
+      state.pressed = pressed
+      state.x = pressed ? getX(event) : -1
+      if (!pressed) {
+        const panelIndex = getActivePanelIndex()
+        activatePanel(panelIndex)
       }
     }
   }
@@ -156,9 +161,8 @@ function carousel(params) {
     }
   }
 
-  function activatePanel() {
-    const { speed, alternateSpeed, classNames } = options
-    const { items, container, indicators } = elements
+  function getActivePanelIndex() {
+    const { items } = elements
 
     const panels = items.map((item, index) => ({
       item,
@@ -170,17 +174,24 @@ function carousel(params) {
       item.getBoundingClientRect().left < middle
     ))
 
-    const panelToActivate = leftPanels[leftPanels.length - 1] || panels[0]
-    const isDifferentPanel = state.active !== panelToActivate.index
+    return (leftPanels[leftPanels.length - 1] || panels[0]).index
+  }
+
+  function activatePanel(panelIndex) {
+    const { speed, alternateSpeed, classNames } = options
+    const { items, container, indicators } = elements
+
+    const panelToActivate = items[panelIndex]
+    const isDifferentPanel = state.active !== panelIndex
     const itemWidth = items[0].getBoundingClientRect().width
 
     container.style.cssText += `;
-      transform: translateX(${-itemWidth * panelToActivate.index}px);
+      transform: translateX(${-itemWidth * panelIndex}px);
       transition: transform ${isDifferentPanel ? speed : alternateSpeed}ms;
     `
 
     items.forEach(item => {
-      if (item === panelToActivate.item) {
+      if (item === panelToActivate) {
         addClass(
           item,
           defaultClassNames.ITEM_ACTIVE,
@@ -196,7 +207,7 @@ function carousel(params) {
     })
 
     ;[...indicators.children].forEach((indicator, index) => {
-      if (index === panelToActivate.index) {
+      if (index === panelIndex) {
         addClass(
           indicator,
           defaultClassNames.INDICATOR_ACTIVE,
@@ -211,7 +222,7 @@ function carousel(params) {
       }
     })
 
-    state.active = panelToActivate.index
+    state.active = panelIndex
   }
 
   function getDimensions() {
@@ -248,12 +259,16 @@ function carousel(params) {
         classNames.indicators
       )
       itemContents.forEach((item, index) => {
-        const indicator = document.createElement('span')
+        const indicator = document.createElement('button')
+        indicator.type = 'button'
         addClass(
           indicator,
           defaultClassNames.INDICATOR,
           classNames.indicator
         )
+        indicator.addEventListener('click', e => {
+          activatePanel(index)
+        })
         indicators.appendChild(indicator)
       })
       el.appendChild(indicators)
@@ -285,7 +300,7 @@ function carousel(params) {
 
   function reset() {
     addStyles(getCSS())
-    activatePanel()
+    activatePanel(state.active)
   }
 
   function init(params) {
@@ -309,6 +324,8 @@ function carousel(params) {
         container: '',
         indicators: '',
         indicator: '',
+        indicatorDot: '',
+        activeIndicatorDot: '',
         item: '',
         itemActive: ''
       }, style),
