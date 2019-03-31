@@ -1,6 +1,7 @@
 export default {
   require: [
-    'esm'
+    'esm',
+    './browser-env.js'
   ],
 
   babel: {
