@@ -25,7 +25,7 @@ function carousel(params) {
 
   const STYLE_TAG_ID = 'carousel-style'
 
-  init(params)
+  return init(params)
 
   function getCSS() {
     const { style, speed } = options
@@ -357,6 +357,13 @@ function carousel(params) {
 
     addEventListeners()
     reset()
+
+    return {
+      __test__: {
+        defaultClassNames,
+        STYLE_TAG_ID
+      }
+    }
   }
 }
 
