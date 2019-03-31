@@ -63,8 +63,8 @@
     }
 
     @media
-    (max-width: 800px) and
-    (max-height: 800px) {
+    (max-width: 600px) and
+    (max-height: 600px) {
         .ad-unit__carousel-indicators {
             top: auto;
             bottom: 0;
