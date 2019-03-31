@@ -62,3 +62,51 @@ test('Indicators', t => {
     'When nth indicator is clicked, nth panel becomes active'
   )
 })
+
+test('classNames', t => {
+  function expectClassName($el, className, title) {
+    t.true(
+      $el.classList.contains(className),
+      `${title} gets className passed from classNames`
+    )
+  }
+
+  const myContainer = createEl(3)
+
+  const classNames = {
+    el: 'test-el',
+    container: 'test-container',
+    indicators: 'test-indicators',
+    indicator: 'test-indicator',
+    indicatorActive: 'test-indicator-active',
+    item: 'test-item',
+    itemActive: 'test-item-active'
+  }
+
+  const myCarousel = carousel({
+    el: myContainer,
+    showIndicators: true,
+    classNames
+  })
+
+  const { defaultClassNames } = myCarousel.__test__
+
+  const $container = myContainer.querySelector(`.${defaultClassNames.CONTAINER}`)
+  const $indicators = myContainer.querySelector(`.${defaultClassNames.INDICATORS}`)
+  const $indicatorAll = myContainer.querySelectorAll(`.${defaultClassNames.INDICATOR}`)
+  const $indicatorActive = myContainer.querySelector(`.${defaultClassNames.INDICATOR_ACTIVE}`)
+  const $itemAll = myContainer.querySelectorAll(`.${defaultClassNames.ITEM}`)
+  const $itemActive = myContainer.querySelector(`.${defaultClassNames.ITEM_ACTIVE}`)
+
+  expectClassName(myContainer, classNames.el, 'Container')
+  expectClassName($container, classNames.container, 'Item Container')
+  expectClassName($indicators, classNames.indicators, 'Indicator Container')
+  $indicatorAll.forEach($indicator => {
+    expectClassName($indicator, classNames.indicator, 'Each indicator')
+  })
+  expectClassName($indicatorActive, classNames.indicatorActive, 'Active indicator')
+  $itemAll.forEach($item => {
+    expectClassName($item, classNames.item, 'Each item')
+  })
+  expectClassName($itemActive, classNames.itemActive, 'Active item')
+})
