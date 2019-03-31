@@ -38,8 +38,11 @@ test('Indicators', t => {
   })
 
   const { defaultClassNames } = myCarousel.__test__
+  const indicators = myContainer.querySelectorAll(`.${defaultClassNames.INDICATOR}`)
+  const panels = myContainer.querySelectorAll(`.${defaultClassNames.ITEM}`)
+
   t.is(
-    myContainer.querySelectorAll(`.${defaultClassNames.INDICATOR}`).length,
+    indicators.length,
     imageCount,
     'Correct amount of indicators created'
   )
@@ -48,5 +51,14 @@ test('Indicators', t => {
     myContainer.querySelectorAll(`.${defaultClassNames.INDICATOR_ACTIVE}`).length,
     1,
     'There is only one active indicator'
+  )
+
+  const activePanelIndex = 1
+  const activeIndicator = indicators[activePanelIndex]
+  const activePanel = panels[activePanelIndex]
+  activeIndicator.click()
+  t.true(
+    activePanel.classList.contains(defaultClassNames.ITEM_ACTIVE),
+    'When nth indicator is clicked, nth panel becomes active'
   )
 })
