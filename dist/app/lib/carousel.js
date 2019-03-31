@@ -2,7 +2,7 @@ import {
   debounce,
   addClass,
   removeClass
-} from '../utils.js'
+} from '../utils.mjs'
 
 function carousel(params) {
   const options = {}
