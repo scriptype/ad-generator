@@ -37,3 +37,11 @@ body {
 img {
     vertical-align: middle;
 }
+
+button {
+    background: none;
+    border: none;
+    appearance: none;
+    color: inherit;
+    font-size: 1em;
+}
