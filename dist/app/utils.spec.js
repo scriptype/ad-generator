@@ -1,5 +1,5 @@
 import test from 'ava'
-import { debounce, addClass } from './utils.mjs'
+import { debounce, addClass, removeClass } from './utils.mjs'
 
 test.cb('debounce', t => {
   t.plan(3)
@@ -49,5 +49,31 @@ test('addClass', t => {
     [...myElement.classList.values()],
     [ testClass1, testClass2 ],
     'It only adds thruthy valid classnames'
+  )
+})
+
+test('removeClass', t => {
+  const myElement = document.createElement('div')
+  const testClass1 = 'my-test-class'
+  const testClass2 = 'my-test-class-2'
+  const testClass3 = ''
+  const testClass4 = null
+  const testClass5 = undefined
+
+  myElement.classList.add(testClass1)
+
+  removeClass(myElement, testClass1)
+  t.false(
+    myElement.classList.contains(testClass1),
+    'It removes the className'
+  )
+
+  myElement.classList.add(testClass2, testClass2)
+  removeClass(myElement, testClass2, testClass3, testClass4, testClass5)
+  t.pass('It does not throw error if some of the given classes are falsy')
+  t.deepEqual(
+    [...myElement.classList.values()],
+    [],
+    'It only removes the thruthy valid classnames'
   )
 })
