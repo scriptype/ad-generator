@@ -5,7 +5,7 @@ const ui = {
 }
 
 function init() {
-  carousel.init({
+  carousel({
     el: ui.$adCarousel,
     showIndicators: true,
     speed: 300,
