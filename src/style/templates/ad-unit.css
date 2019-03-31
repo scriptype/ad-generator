@@ -10,6 +10,10 @@
     justify-content: space-between;
 }
 
+.ad-unit--single {
+    padding: var(--padding);
+}
+
 .ad-unit__carousel {
     width: var(--width);
 }
