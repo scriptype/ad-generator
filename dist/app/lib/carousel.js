@@ -243,7 +243,7 @@ function carousel(params) {
     addClass(el, defaultClassNames.EL, classNames.el)
 
     const container = document.createElement('div')
-    addClass(container, defaultClassNames.CONTAINER, classNames.items)
+    addClass(container, defaultClassNames.CONTAINER, classNames.container)
     itemContents.map(item => {
       const wrapper = document.createElement('div')
       wrapper.appendChild(item)
