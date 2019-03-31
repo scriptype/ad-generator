@@ -53,7 +53,7 @@ test('Indicators', t => {
     'There is only one active indicator'
   )
 
-  const activePanelIndex = 1
+  const activePanelIndex = 4
   const activeIndicator = indicators[activePanelIndex]
   const activePanel = panels[activePanelIndex]
   activeIndicator.click()
