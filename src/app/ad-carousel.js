@@ -7,12 +7,11 @@ const ui = {
 function init() {
   carousel.init({
     el: ui.$adCarousel,
+    showIndicators: true,
     speed: 300,
-    style: {
-      item: `
-        padding-left: var(--padding);
-        padding-right: var(--padding);
-      `
+    classNames: {
+      item: 'ad-unit__carousel-item',
+      indicators: 'ad-unit__carousel-indicators'
     }
   })
 }

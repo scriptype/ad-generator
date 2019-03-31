@@ -1,52 +1,99 @@
-import { debounce } from '../utils.js'
+import {
+  debounce,
+  addClass,
+  removeClass
+} from '../utils.js'
 
-const classNames = {
+const defaultClassNames = {
   EL: 'js-carousel-el',
   CONTAINER: 'js-carousel-container',
+  INDICATORS: 'js-carousel-indicators',
+  INDICATOR: 'js-carousel-indicator',
+  INDICATOR_ACTIVE: 'js-carousel-indicator--active',
   ITEM: 'js-carousel-item',
   ITEM_ACTIVE: 'js-carousel-item--active'
 }
 
 const STYLE_TAG_ID = 'carousel-style'
 
-function addClassNames({ el, container, items }) {
-  el.classList.add(classNames.EL)
-  container.classList.add(classNames.CONTAINER)
-  items.forEach(item => {
-    item.classList.add(classNames.ITEM)
-  })
-}
-
-function getCSS(options) {
-  const { items, style } = options
-  const dimensions = getDimensions(options)
+function getCSS(options, elements) {
+  const { style, speed } = options
+  const { items } = elements
+  const dimensions = getDimensions(options, elements)
 
   const itemMaxWidth = dimensions.el.width
   const containerWidth = dimensions.el.width * items.length
   const containerHeight = dimensions.item.height
 
+  const {
+    EL,
+    CONTAINER,
+    INDICATORS,
+    INDICATOR,
+    INDICATOR_ACTIVE,
+    ITEM,
+    ITEM_ACTIVE
+  } = defaultClassNames
+
   return `
-    .${classNames.EL} {
+    .${EL} {
+      --js-carousel-indicator-size: .5em;
+      position: relative;
       ${style.el};
     }
 
-    .${classNames.CONTAINER} {
+    .${CONTAINER} {
       width: ${containerWidth}px;
       height: ${containerHeight}px;
       overflow: hidden;
       ${style.container};
     }
 
-    .${classNames.ITEM} {
+    .${INDICATORS} {
+      position: absolute;
+      left: 50%;
+      top: calc(100% + var(--js-carousel-indicator-size));
+      display: inline-block;
+      height: var(--js-carousel-indicator-size);
+      overflow: hidden;
+      transform: translate(-50%, 0);
+      ${style.indicators};
+    }
+
+    .${INDICATOR} {
+      display: block;
+      float: left;
+      width: var(--js-carousel-indicator-size);
+      height: var(--js-carousel-indicator-size);
+      background: rgba(0, 0, 0, .5);
+      box-shadow: 0 0 0 rgba(255, 255, 255, .5);
+      border-radius: 50%;
+      vertical-align: middle;
+      transform: scale(.66);
+      transition: all ${speed}ms;
+      ${style.indicator};
+    }
+
+    .${INDICATOR}:not(:first-child) {
+      margin-left: calc(var(--js-carousel-indicator-size) * 2);
+    }
+
+    .${INDICATOR_ACTIVE} {
+      background: rgba(0, 0, 0, .75);
+      box-shadow: 0 0 0 rgba(255, 255, 255, .75);
+      transform: scale(1);
+    }
+
+    .${ITEM} {
       width: ${itemMaxWidth}px;
       float: left;
       text-align: center;
       opacity: .3;
-      transition: opacity ${options.speed}ms;
+      transition: opacity ${speed}ms;
       ${style.item};
     }
 
-    .${classNames.ITEM_ACTIVE} {
+    .${ITEM_ACTIVE} {
       opacity: 1;
       ${style.itemActive};
     }
@@ -68,7 +115,7 @@ function getX(event) {
   return event.clientX || event.touches[0].clientX
 }
 
-function togglePressed(options, state, isActive) {
+function togglePressed(options, elements, state, isActive) {
   return event => {
     if (state.pressed === isActive) {
       return
@@ -76,12 +123,12 @@ function togglePressed(options, state, isActive) {
     state.pressed = isActive
     state.x = isActive ? getX(event) : -1
     if (!isActive) {
-      activatePanel(options, state)
+      activatePanel(options, elements, state)
     }
   }
 }
 
-function move({ container }, state) {
+function move(options, { container }, state) {
   return event => {
     if (state.pressed) {
       const left = container.getBoundingClientRect().left
@@ -97,7 +144,10 @@ function move({ container }, state) {
   }
 }
 
-function activatePanel({ items, container, speed, alternateSpeed }, state) {
+function activatePanel(options, elements, state) {
+  const { speed, alternateSpeed, classNames } = options
+  const { items, container, indicators } = elements
+
   const panels = items.map((item, index) => ({
     item,
     index
@@ -119,16 +169,40 @@ function activatePanel({ items, container, speed, alternateSpeed }, state) {
 
   items.forEach(item => {
     if (item === panelToActivate.item) {
-      item.classList.add(classNames.ITEM_ACTIVE)
+      addClass(
+        item,
+        defaultClassNames.ITEM_ACTIVE,
+        classNames.itemActive
+      )
     } else {
-      item.classList.remove(classNames.ITEM_ACTIVE)
+      removeClass(
+        item,
+        defaultClassNames.ITEM_ACTIVE,
+        classNames.itemActive
+      )
+    }
+  })
+
+  ;[...indicators.children].forEach((indicator, index) => {
+    if (index === panelToActivate.index) {
+      addClass(
+        indicator,
+        defaultClassNames.INDICATOR_ACTIVE,
+        classNames.indicatorActive
+      )
+    } else {
+      removeClass(
+        indicator,
+        defaultClassNames.INDICATOR_ACTIVE,
+        classNames.indicatorActive
+      )
     }
   })
 
   state.active = panelToActivate.index
 }
 
-function getDimensions({ el, items }) {
+function getDimensions(options, { el, items }) {
   const elDimensions = el.getBoundingClientRect()
   const itemDimensions = items[0].getBoundingClientRect()
   return {
@@ -137,25 +211,53 @@ function getDimensions({ el, items }) {
   }
 }
 
-function getContainer(el, itemContents) {
+function buildUI({ showIndicators, classNames }, { el, itemContents }) {
+  el.innerHTML = ''
+  addClass(el, defaultClassNames.EL, classNames.el)
+
   const container = document.createElement('div')
+  addClass(container, defaultClassNames.CONTAINER, classNames.items)
   itemContents.map(item => {
     const wrapper = document.createElement('div')
     wrapper.appendChild(item)
+    addClass(wrapper, defaultClassNames.ITEM, classNames.item)
     container.appendChild(wrapper)
   })
-  el.innerHTML = ''
   el.appendChild(container)
-  return container
+
+  let indicators = null
+  if (showIndicators) {
+    indicators = document.createElement('div')
+    addClass(
+      indicators,
+      defaultClassNames.INDICATORS,
+      classNames.indicators
+    )
+    itemContents.forEach((item, index) => {
+      const indicator = document.createElement('span')
+      addClass(
+        indicator,
+        defaultClassNames.INDICATOR,
+        classNames.indicator
+      )
+      indicators.appendChild(indicator)
+    })
+    el.appendChild(indicators)
+  }
+
+  return {
+    container,
+    indicators
+  }
 }
 
-function addEventListeners(options, state) {
-  const { container } = options
-  const onResize = reset.bind(null, options, state)
+function addEventListeners(options, elements, state) {
+  const { container } = elements
+  const onResize = reset.bind(null, options, elements, state)
   window.addEventListener('resize', debounce(onResize, 100))
-  const onTouchStart = togglePressed(options, state, true)
-  const onTouchEnd = togglePressed(options, state, false)
-  const onTouchMove = move(options, state)
+  const onTouchStart = togglePressed(options, elements, state, true)
+  const onTouchEnd = togglePressed(options, elements, state, false)
+  const onTouchMove = move(options, elements, state)
 
   container.addEventListener('mousedown', onTouchStart)
   container.addEventListener('touchstart', onTouchStart)
@@ -168,30 +270,57 @@ function addEventListeners(options, state) {
   container.addEventListener('touchcancel', onTouchEnd)
 }
 
-function reset(options, state) {
-  const css = getCSS(options)
+function reset(options, elements, state) {
+  const css = getCSS(options, elements)
   addStyles(css)
-  activatePanel(options, state)
+  activatePanel(options, elements, state)
 }
 
-function init({ el, speed, alternateSpeed, style }) {
-  const itemContents = [...el.children]
-  const container = getContainer(el, itemContents)
-  const items = [...container.children]
+function init(params) {
+  const {
+    el,
+    showIndicators = false,
+    speed = 100,
+    alternateSpeed,
+    style = {},
+    classNames = {}
+  } = params
 
   const options = {
+    el,
+    showIndicators,
+    speed,
+    alternateSpeed: alternateSpeed || speed * 1.5,
+
+    style: Object.assign({
+      el: '',
+      container: '',
+      indicators: '',
+      indicator: '',
+      item: '',
+      itemActive: ''
+    }, style),
+
+    classNames: Object.assign({
+      el: '',
+      container: '',
+      indicators: '',
+      indicator: '',
+      item: '',
+      itemActive: ''
+    }, classNames)
+  }
+
+  const itemContents = [...el.children]
+  const { container, indicators } = buildUI(options, { el, itemContents })
+  const items = [...container.children]
+
+  const elements = {
     el,
     container,
     items,
     itemContents,
-    speed,
-    alternateSpeed: alternateSpeed || speed * 1.5,
-    style: Object.assign({
-      el: '',
-      container: '',
-      item: '',
-      itemActive: ''
-    }, style)
+    indicators
   }
 
   const state = {
@@ -200,9 +329,8 @@ function init({ el, speed, alternateSpeed, style }) {
     active: 0
   }
 
-  addClassNames(options)
-  addEventListeners(options, state)
-  reset(options, state)
+  addEventListeners(options, elements, state)
+  reset(options, elements, state)
 }
 
 export default {
