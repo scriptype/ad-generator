@@ -76,7 +76,7 @@ function togglePressed(options, state, isActive) {
     state.pressed = isActive
     state.x = isActive ? getX(event) : -1
     if (!isActive) {
-      activatePanel(options)
+      activatePanel(options, state)
     }
   }
 }
@@ -97,7 +97,7 @@ function move({ container }, state) {
   }
 }
 
-function activatePanel({ items, container, speed }) {
+function activatePanel({ items, container, speed, alternateSpeed }, state) {
   const panels = items.map((item, index) => ({
     item,
     index
@@ -109,11 +109,12 @@ function activatePanel({ items, container, speed }) {
   ))
 
   const panelToActivate = leftPanels[leftPanels.length - 1] || panels[0]
+  const isDifferentPanel = state.active !== panelToActivate.index
   const itemWidth = items[0].getBoundingClientRect().width
 
   container.style.cssText += `;
     transform: translateX(${-itemWidth * panelToActivate.index}px);
-    transition: transform ${speed}ms;
+    transition: transform ${isDifferentPanel ? speed : alternateSpeed}ms;
   `
 
   items.forEach(item => {
@@ -123,6 +124,8 @@ function activatePanel({ items, container, speed }) {
       item.classList.remove(classNames.ITEM_ACTIVE)
     }
   })
+
+  state.active = panelToActivate.index
 }
 
 function getDimensions({ el, items }) {
@@ -146,15 +149,15 @@ function getContainer(el, itemContents) {
   return container
 }
 
-function reset(options) {
+function reset(options, state) {
   const css = getCSS(options)
   addStyles(css)
-  activatePanel(options)
+  activatePanel(options, state)
 }
 
 function addEventListeners(options, state) {
   const { container } = options
-  const onResize = reset.bind(null, options)
+  const onResize = reset.bind(null, options, state)
   window.addEventListener('resize', debounce(onResize, 100))
   const onTouchStart = togglePressed(options, state, true)
   const onTouchEnd = togglePressed(options, state, false)
@@ -169,7 +172,7 @@ function addEventListeners(options, state) {
   container.addEventListener('touchcancel', onTouchEnd)
 }
 
-function init({ el, speed, style }) {
+function init({ el, speed, alternateSpeed, style }) {
   const itemContents = [...el.children]
   const container = getContainer(el, itemContents)
   const items = [...container.children]
@@ -180,6 +183,7 @@ function init({ el, speed, style }) {
     items,
     itemContents,
     speed,
+    alternateSpeed: alternateSpeed || speed * 1.5,
     style: Object.assign({
       el: '',
       container: '',
@@ -190,12 +194,13 @@ function init({ el, speed, style }) {
 
   const state = {
     pressed: false,
-    x: -1
+    x: -1,
+    active: 0
   }
 
   addClassNames(options)
   addEventListeners(options, state)
-  reset(options)
+  reset(options, state)
 }
 
 export default {
